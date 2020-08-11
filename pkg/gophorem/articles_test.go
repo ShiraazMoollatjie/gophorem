@@ -20,7 +20,7 @@ func TestPublishedArticle(t *testing.T) {
 		w.WriteHeader(http.StatusOK)
 		w.Write(b)
 	}))
-	client := NewClient(withBaseURL(ts.URL))
+	client := NewDevtoClient(withBaseURL(ts.URL))
 	article, err := client.PublishedArticle(167919)
 	require.NoError(t, err)
 	require.Equal(t, &res, article)
@@ -35,7 +35,7 @@ func TestPublishedArticleByPath(t *testing.T) {
 		w.WriteHeader(http.StatusOK)
 		w.Write(b)
 	}))
-	client := NewClient(withBaseURL(ts.URL))
+	client := NewDevtoClient(withBaseURL(ts.URL))
 	article, err := client.PublishedArticleByPath("devteam", "using-go-is-awesome")
 	require.NoError(t, err)
 	require.Equal(t, &res, article)
@@ -61,7 +61,7 @@ func TestGetArticles(t *testing.T) {
 				w.Write(b)
 			}))
 
-			client := NewClient(withBaseURL(ts.URL))
+			client := NewDevtoClient(withBaseURL(ts.URL))
 			articles, err := client.Articles(test.arguments)
 			require.NoError(t, err)
 			require.Equal(t, res, articles)
@@ -88,7 +88,7 @@ func TestGetVideoArticles(t *testing.T) {
 				w.Write(b)
 			}))
 
-			client := NewClient(withBaseURL(ts.URL))
+			client := NewDevtoClient(withBaseURL(ts.URL))
 			articles, err := client.VideoArticles(test.arguments)
 			require.NoError(t, err)
 			require.Equal(t, res, articles)
@@ -106,7 +106,7 @@ func TestGetMyArticles(t *testing.T) {
 		w.Write(b)
 	}))
 
-	client := NewClient(withBaseURL(ts.URL))
+	client := NewDevtoClient(withBaseURL(ts.URL))
 	articles, err := client.MyArticles(Defaults())
 	require.NoError(t, err)
 	require.Equal(t, res, articles)
@@ -122,7 +122,7 @@ func TestGetMyPublishedArticles(t *testing.T) {
 		w.Write(b)
 	}))
 
-	client := NewClient(withBaseURL(ts.URL))
+	client := NewDevtoClient(withBaseURL(ts.URL))
 	articles, err := client.MyPublishedArticles(Defaults())
 	require.NoError(t, err)
 	require.Equal(t, res, articles)
@@ -138,7 +138,7 @@ func TestGetMyUnpublishedArticles(t *testing.T) {
 		w.Write(b)
 	}))
 
-	client := NewClient(withBaseURL(ts.URL))
+	client := NewDevtoClient(withBaseURL(ts.URL))
 	articles, err := client.MyUnpublishedArticles(Defaults())
 	require.NoError(t, err)
 	require.Equal(t, res, articles)
@@ -154,7 +154,7 @@ func TestGetAllMyArticles(t *testing.T) {
 		w.Write(b)
 	}))
 
-	client := NewClient(withBaseURL(ts.URL))
+	client := NewDevtoClient(withBaseURL(ts.URL))
 	articles, err := client.AllMyArticles(Defaults())
 	require.NoError(t, err)
 	require.Equal(t, res, articles)
@@ -188,7 +188,7 @@ func TestCreateArticle(t *testing.T) {
 		w.Write(b)
 	}))
 
-	client := NewClient(withBaseURL(ts.URL), WithApiKey("myApiKey"))
+	client := NewDevtoClient(withBaseURL(ts.URL), WithApiKey("myApiKey"))
 	articles, err := client.CreateArticle(testArticle)
 	require.NoError(t, err)
 	require.Equal(t, res, articles)
@@ -221,7 +221,7 @@ func TestCreateArticleNoSeriesField(t *testing.T) {
 		w.Write(b)
 	}))
 
-	client := NewClient(withBaseURL(ts.URL), WithApiKey("myApiKey"))
+	client := NewDevtoClient(withBaseURL(ts.URL), WithApiKey("myApiKey"))
 	articles, err := client.CreateArticle(testArticle)
 	require.NoError(t, err)
 	require.Equal(t, res, articles)
@@ -255,7 +255,7 @@ func TestUpdateArticle(t *testing.T) {
 		w.Write(b)
 	}))
 
-	client := NewClient(withBaseURL(ts.URL), WithApiKey("myApiKey"))
+	client := NewDevtoClient(withBaseURL(ts.URL), WithApiKey("myApiKey"))
 	articles, err := client.UpdateArticle(1000, testArticle)
 	require.NoError(t, err)
 	require.Equal(t, res, articles)

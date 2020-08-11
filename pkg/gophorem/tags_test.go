@@ -28,7 +28,7 @@ func TestTags(t *testing.T) {
 				w.Write(b)
 			}))
 
-			client := NewClient(withBaseURL(ts.URL))
+			client := NewDevtoClient(withBaseURL(ts.URL))
 			pe, err := client.Tags(test.arguments)
 			require.NoError(t, err)
 			require.Equal(t, res, pe)

@@ -29,7 +29,7 @@ func TestWebhooks(t *testing.T) {
 				w.Write(b)
 			}))
 
-			client := NewClient(withBaseURL(ts.URL))
+			client := NewDevtoClient(withBaseURL(ts.URL))
 			articles, err := client.Webhooks()
 			require.NoError(t, err)
 			require.Equal(t, res, articles)
@@ -46,7 +46,7 @@ func TestWebhook(t *testing.T) {
 		w.WriteHeader(http.StatusOK)
 		w.Write(b)
 	}))
-	client := NewClient(withBaseURL(ts.URL))
+	client := NewDevtoClient(withBaseURL(ts.URL))
 	article, err := client.Webhook(167919)
 	require.NoError(t, err)
 	require.Equal(t, &res, article)
@@ -61,7 +61,7 @@ func TestDeleteWebhook(t *testing.T) {
 		w.WriteHeader(http.StatusOK)
 	}))
 
-	client := NewClient(withBaseURL(ts.URL), WithApiKey("myApiKey"))
+	client := NewDevtoClient(withBaseURL(ts.URL), WithApiKey("myApiKey"))
 	err := client.DeleteWebhook(12345)
 	require.NoError(t, err)
 }
@@ -92,7 +92,7 @@ func TestCreateWebhook(t *testing.T) {
 		w.Write(b)
 	}))
 
-	client := NewClient(withBaseURL(ts.URL), WithApiKey("myApiKey"))
+	client := NewDevtoClient(withBaseURL(ts.URL), WithApiKey("myApiKey"))
 	articles, err := client.CreateWebhook(whr)
 	require.NoError(t, err)
 	require.Equal(t, res, articles)

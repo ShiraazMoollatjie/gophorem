@@ -15,7 +15,7 @@ func TestNewClient(t *testing.T) {
 		w.WriteHeader(http.StatusOK)
 		w.Write([]byte("ok"))
 	}))
-	NewClient(withBaseURL(ts.URL))
+	NewDevtoClient(withBaseURL(ts.URL))
 	fmt.Println(ts.URL)
 	require.True(t, strings.Contains(ts.URL, "127.0.0.1"))
 }
@@ -26,7 +26,7 @@ func TestNewClientApiKey(t *testing.T) {
 		w.WriteHeader(http.StatusOK)
 		w.Write([]byte("ok"))
 	}))
-	NewClient(withBaseURL(ts.URL), WithApiKey("myApiKey"))
+	NewDevtoClient(withBaseURL(ts.URL), WithApiKey("myApiKey"))
 	fmt.Println(ts.URL)
 	require.True(t, strings.Contains(ts.URL, "127.0.0.1"))
 }

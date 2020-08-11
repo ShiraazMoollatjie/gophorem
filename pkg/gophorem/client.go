@@ -51,7 +51,20 @@ func WithApiKey(apiKey string) Option {
 }
 
 // NewClient creates a dev.to client with the provided options.
-func NewClient(opts ...Option) *Client {
+func NewClient(foremURL string, opts ...Option) *Client {
+	res := &Client{
+		baseURL: foremURL,
+		http:    &http.Client{},
+	}
+	for _, o := range opts {
+		o(res)
+	}
+
+	return res
+}
+
+// NewDevtoClient creates a dev.to client with the provided options.
+func NewDevtoClient(opts ...Option) *Client {
 	res := &Client{
 		baseURL: "https://dev.to/api",
 		http:    &http.Client{},

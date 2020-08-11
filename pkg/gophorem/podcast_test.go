@@ -28,7 +28,7 @@ func TestPodcastEpisodes(t *testing.T) {
 				w.Write(b)
 			}))
 
-			client := NewClient(withBaseURL(ts.URL))
+			client := NewDevtoClient(withBaseURL(ts.URL))
 			pe, err := client.PodcastEpisodes(test.arguments)
 			require.NoError(t, err)
 			require.Equal(t, res, pe)

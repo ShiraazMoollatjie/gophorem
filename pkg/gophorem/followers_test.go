@@ -28,7 +28,7 @@ func TestFollowers(t *testing.T) {
 				w.Write(b)
 			}))
 
-			client := NewClient(withBaseURL(ts.URL))
+			client := NewDevtoClient(withBaseURL(ts.URL))
 			followers, err := client.Followers(test.arguments)
 			require.NoError(t, err)
 			require.Equal(t, res, followers)
