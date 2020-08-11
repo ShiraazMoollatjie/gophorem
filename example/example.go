@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	cl := gophorem.NewDevtoClient(gophorem.WithApiKey("YOUR_API_KEY_HERE"))
+	cl := gophorem.NewDevtoClient(gophorem.WithApiKey("MY_API_KEY"))
 	al, err := cl.Articles(gophorem.Defaults())
 	if err != nil {
 		log.Fatalf("something went wrong: %+v", err)
