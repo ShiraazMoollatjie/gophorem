@@ -1,4 +1,4 @@
-package devtogo
+package gophorem
 
 // PodcaseEpisodes returns podcast episodes that are according to https://docs.dev.to/api/#operation/getPodcastEpisodes.
 func (c *Client) PodcastEpisodes(args Arguments) (PodcastEpisodes, error) {

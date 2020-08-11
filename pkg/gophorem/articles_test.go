@@ -1,4 +1,4 @@
-package devtogo
+package gophorem
 
 import (
 	"encoding/json"
@@ -262,7 +262,7 @@ func TestUpdateArticle(t *testing.T) {
 }
 
 func unmarshalGoldenFileBytes(t *testing.T, filename string, payload interface{}) []byte {
-	p := filepath.Join("testdata", filename)
+	p := filepath.Join("../../testdata", filename)
 	b, err := ioutil.ReadFile(p)
 	require.NoError(t, err)
 

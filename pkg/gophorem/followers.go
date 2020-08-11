@@ -1,4 +1,4 @@
-package devtogo
+package gophorem
 
 // Followers will retrieve a list of the followers that you have.
 func (c *Client) Followers(args Arguments) (Followers, error) {

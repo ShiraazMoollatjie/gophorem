@@ -1,4 +1,4 @@
-package devtogo
+package gophorem
 
 import (
 	"net/http"
@@ -8,9 +8,9 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestPodcastEpisodes(t *testing.T) {
-	var res PodcastEpisodes
-	b := unmarshalGoldenFileBytes(t, "podcasts.json", &res)
+func TestTags(t *testing.T) {
+	var res Tags
+	b := unmarshalGoldenFileBytes(t, "tags.json", &res)
 
 	tests := []struct {
 		name                string
@@ -23,13 +23,13 @@ func TestPodcastEpisodes(t *testing.T) {
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
 			ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-				require.Equal(t, "/podcast_episodes?"+test.expectedQueryParams, r.URL.String())
+				require.Equal(t, "/tags?"+test.expectedQueryParams, r.URL.String())
 				w.WriteHeader(http.StatusOK)
 				w.Write(b)
 			}))
 
 			client := NewClient(withBaseURL(ts.URL))
-			pe, err := client.PodcastEpisodes(test.arguments)
+			pe, err := client.Tags(test.arguments)
 			require.NoError(t, err)
 			require.Equal(t, res, pe)
 		})

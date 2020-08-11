@@ -1,4 +1,4 @@
-package devtogo
+package gophorem
 
 import (
 	"encoding/json"

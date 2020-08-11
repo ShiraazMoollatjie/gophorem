@@ -1,4 +1,4 @@
-package devtogo
+package gophorem
 
 // Tags returns  a list of tags that can be used to tag articles.
 func (c *Client) Tags(args Arguments) (Tags, error) {
