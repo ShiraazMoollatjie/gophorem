@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// AllComments will return the all top level comments with their nested comments as threads.
+// AllComments will return the all top level comments with their nested comments as threads. See https://docs.dev.to/api/#operation/getCommentsByArticleId
 func (c *Client) AllComments(ctx context.Context, articleID int) (Comments, error) {
 	if articleID == 0 {
 		return nil, errors.New("articleID cannot be empty")
@@ -18,13 +18,15 @@ func (c *Client) AllComments(ctx context.Context, articleID int) (Comments, erro
 	return res, err
 }
 
-// CommentWithReplies will retrieve a comment as well as his descendants comments for the provided id.
+// CommentWithReplies will retrieve a comment as well as his descendants comments for the provided id. See https://docs.dev.to/api/#operation/getCommentById
 func (c *Client) CommentWithReplies(ctx context.Context, id int) (*Comment, error) {
 	var res Comment
 	err := c.get(ctx, c.baseURL+fmt.Sprintf("/comments/%d", id), &res)
 
 	return &res, err
 }
+
+// The structs in this file was generated via https://mholt.github.io/json-to-go/.
 
 type Comments []Comment
 

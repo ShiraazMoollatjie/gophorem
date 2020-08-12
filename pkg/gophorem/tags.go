@@ -2,7 +2,7 @@ package gophorem
 
 import "context"
 
-// Tags returns  a list of tags that can be used to tag articles.
+// Tags returns  a list of tags that can be used to tag articles. See https://docs.dev.to/api/#tag/tags
 func (c *Client) Tags(ctx context.Context, args Arguments) (Tags, error) {
 	var res Tags
 	qp := args.toQueryParams().Encode()
@@ -10,6 +10,8 @@ func (c *Client) Tags(ctx context.Context, args Arguments) (Tags, error) {
 
 	return res, err
 }
+
+// The structs in this file was generated via https://mholt.github.io/json-to-go/.
 
 type Tags []struct {
 	ID           int    `json:"id"`

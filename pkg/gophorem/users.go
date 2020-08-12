@@ -5,7 +5,7 @@ import (
 	"fmt"
 )
 
-// LookupUser will retrieve single user, either by id or by the user's username.
+// LookupUser will retrieve single user, either by id or by the user's username. See https://docs.dev.to/api/#operation/getUser
 func (c *Client) LookupUser(ctx context.Context, id string) (*UserProfile, error) {
 	var res UserProfile
 	err := c.get(ctx, c.baseURL+fmt.Sprintf("/users/%s", id), &res)
@@ -13,13 +13,15 @@ func (c *Client) LookupUser(ctx context.Context, id string) (*UserProfile, error
 	return &res, err
 }
 
-// Me will retrieve the user profile for the configured authentication key.
+// Me will retrieve the user profile for the configured authentication key. See https://docs.dev.to/api/#operation/getUserMe
 func (c *Client) Me(ctx context.Context) (*UserProfile, error) {
 	var res UserProfile
 	err := c.get(ctx, c.baseURL+"/users/me", &res)
 
 	return &res, err
 }
+
+// The structs in this file was generated via https://mholt.github.io/json-to-go/.
 
 // User represents a user from the dev.to api.
 type User struct {

@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-// Listing will retrieve a listing based on the provided id.
+// Listing will retrieve a listing based on the provided id. See https://docs.dev.to/api/#operation/getListingById
 func (c *Client) Listing(ctx context.Context, id int) (*Listing, error) {
 	var res Listing
 	err := c.get(ctx, fmt.Sprintf(c.baseURL+"/listings/%d", id), &res)
@@ -14,7 +14,7 @@ func (c *Client) Listing(ctx context.Context, id int) (*Listing, error) {
 	return &res, err
 }
 
-// Listings will retrieve listings. "Listings" are classified ads that users create on DEV.
+// Listings will retrieve listings. "Listings" are classified ads that users create on DEV. See https://docs.dev.to/api/#operation/getListings
 func (c *Client) Listings(ctx context.Context, args Arguments) (Listings, error) {
 	var res Listings
 	qp := args.toQueryParams().Encode()
@@ -23,7 +23,7 @@ func (c *Client) Listings(ctx context.Context, args Arguments) (Listings, error)
 	return res, err
 }
 
-// ListingsByCategory will retrieve listings belonging to the provided category
+// ListingsByCategory will retrieve listings belonging to the provided category. See https://docs.dev.to/api/#operation/getListingsByCategory
 func (c *Client) ListingsByCategory(ctx context.Context, category ListingCategory) (Listings, error) {
 	var res Listings
 	err := c.get(ctx, fmt.Sprintf(c.baseURL+"/listings/category/%s", category), &res)
@@ -31,7 +31,7 @@ func (c *Client) ListingsByCategory(ctx context.Context, category ListingCategor
 	return res, err
 }
 
-// CreateListing creates a listing if creating the user or the organization on which behalf the user is creating for has enough creadits.
+// CreateListing creates a listing if creating the user or the organization on which behalf the user is creating for has enough credits. See https://docs.dev.to/api/#operation/createListing
 func (c *Client) CreateListing(ctx context.Context, req CreateListingReq) (*Listing, error) {
 	var res Listing
 	err := c.post(ctx, c.baseURL+"/listings", listingReq{Listing: req}, &res)
@@ -39,13 +39,15 @@ func (c *Client) CreateListing(ctx context.Context, req CreateListingReq) (*List
 	return &res, err
 }
 
-// UpdateListing updates a listing if creating the user or the organization on which behalf the user is creating for has enough creadits.
+// UpdateListing updates a listing if creating the user or the organization on which behalf the user is creating for has enough credits. See https://docs.dev.to/api/#operation/updateListing
 func (c *Client) UpdateListing(ctx context.Context, id int, req CreateListingReq) (*Listing, error) {
 	var res Listing
 	err := c.put(ctx, c.baseURL+fmt.Sprintf("/listings/%d", id), listingReq{Listing: req}, &res)
 
 	return &res, err
 }
+
+// The structs in this file was generated via https://mholt.github.io/json-to-go/.
 
 type listingReq struct {
 	Listing CreateListingReq `json:"listing"`

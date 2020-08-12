@@ -11,6 +11,8 @@ func (c *Client) PodcastEpisodes(ctx context.Context, args Arguments) (PodcastEp
 	return res, err
 }
 
+// The structs in this file was generated via https://mholt.github.io/json-to-go/.
+
 type PodcastEpisodes []struct {
 	TypeOf    string `json:"type_of"`
 	ClassName string `json:"class_name"`

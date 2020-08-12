@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-// Webhooks will return a list of webhooks they have previously registered.
+// Webhooks will return a list of webhooks they have previously registered. See https://docs.dev.to/api/#tag/webhooks
 func (c *Client) Webhooks(ctx context.Context) (Webhooks, error) {
 	var res Webhooks
 	err := c.get(ctx, c.baseURL+"/webhooks", &res)
@@ -14,7 +14,7 @@ func (c *Client) Webhooks(ctx context.Context) (Webhooks, error) {
 	return res, err
 }
 
-// Webhook will return a single webhook given its id.
+// Webhook will return a single webhook given its id. See https://docs.dev.to/api/#operation/getWebhookById
 func (c *Client) Webhook(ctx context.Context, id int) (*Webhook, error) {
 	var res Webhook
 	err := c.get(ctx, c.baseURL+fmt.Sprintf("/webhooks/%d", id), &res)
@@ -22,7 +22,8 @@ func (c *Client) Webhook(ctx context.Context, id int) (*Webhook, error) {
 	return &res, err
 }
 
-// CreateWebhook will register HTTP endpoints that will be called once a relevant event is triggered inside the web application, events like article_created, article_updated.
+// CreateWebhook will register HTTP endpoints that will be called once a relevant event is triggered inside the web
+// application, events like article_created, article_updated. See https://docs.dev.to/api/#operation/createWebhook
 func (c *Client) CreateWebhook(ctx context.Context, req CreateWebhookReq) (Webhook, error) {
 	var res Webhook
 	err := c.post(ctx, c.baseURL+"/webhooks", webhookReq{Webhook: req}, &res)
@@ -30,10 +31,13 @@ func (c *Client) CreateWebhook(ctx context.Context, req CreateWebhookReq) (Webho
 	return res, err
 }
 
-// DeleteWebhook will register HTTP endpoints that will be called once a relevant event is triggered inside the web application, events like article_created, article_updated.
+// DeleteWebhook will register HTTP endpoints that will be called once a relevant event is triggered inside the web
+// application, events like article_created, article_updated. See https://docs.dev.to/api/#operation/deleteWebhook
 func (c *Client) DeleteWebhook(ctx context.Context, id int) error {
 	return c.delete(ctx, c.baseURL+fmt.Sprintf("/webhooks/%d", id), nil)
 }
+
+// The structs in this file was generated via https://mholt.github.io/json-to-go/.
 
 type Webhooks []Webhook
 

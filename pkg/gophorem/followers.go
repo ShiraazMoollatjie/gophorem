@@ -2,7 +2,7 @@ package gophorem
 
 import "context"
 
-// Followers will retrieve a list of the followers that you have.
+// Followers will retrieve a list of the followers that you have. See https://docs.dev.to/api/#operation/getFollowers
 func (c *Client) Followers(ctx context.Context, args Arguments) (Followers, error) {
 	var res Followers
 	qp := args.toQueryParams().Encode()
@@ -10,6 +10,8 @@ func (c *Client) Followers(ctx context.Context, args Arguments) (Followers, erro
 
 	return res, err
 }
+
+// The structs in this file was generated via https://mholt.github.io/json-to-go/.
 
 type Followers []struct {
 	TypeOf       string `json:"type_of"`
