@@ -1,4 +1,4 @@
-module github.com/ShiraazMoollatjie/devtogo
+module github.com/ShiraazMoollatjie/gophorem
 
 go 1.12
 

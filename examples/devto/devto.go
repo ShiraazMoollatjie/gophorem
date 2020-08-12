@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/ShiraazMoollatjie/devtogo/pkg/gophorem"
+	"github.com/ShiraazMoollatjie/gophorem/pkg/gophorem"
 )
 
 func main() {
