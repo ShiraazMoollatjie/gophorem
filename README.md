@@ -11,7 +11,7 @@ gophorem is a REST API Wrapper for a forem api written in go.
 Import the package into your go file:
 
 ```go
-import "github.com/ShiraazMoollatjie/gophorem"
+import "github.com/ShiraazMoollatjie/gophorem/pkg/gophorem"
 ```
 
 Thereafter, create a client and specify your API token:
@@ -40,9 +40,19 @@ To retrieve a single article, you need to specify the `article id`:
 article, err := client.GetArticle("167919")
 ```
 
+# Features
+
+* Authentication via API Key
+* Convenience functions to create a devto client
+* The entire forem api set of endpoints including:
+  * Article management
+  * Listing management
+  * Webhook management
+  * Listing podcasts, video articles,
+
 # More examples
 
-See the examples package for more examples on forem api usages.
+See the `examples` package for more examples on forem api usages.
 
 # Reference
 https://docs.dev.to/api/

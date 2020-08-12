@@ -115,7 +115,7 @@ func (c *Client) get(ctx context.Context, url string, target interface{}) error 
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
-		return errors.New("error from dev.to api")
+		return errors.New("error from forem api")
 	}
 
 	b, err := ioutil.ReadAll(resp.Body)
@@ -147,7 +147,7 @@ func (c *Client) save(ctx context.Context, httpMethod string, url string, payloa
 	}
 
 	if resp.StatusCode != http.StatusOK && resp.StatusCode != http.StatusCreated {
-		return fmt.Errorf("error from dev.to api. httpCode: %d, response: %s", resp.StatusCode, b)
+		return fmt.Errorf("error from forem api. httpCode: %d, response: %s", resp.StatusCode, b)
 	}
 
 	return json.Unmarshal(b, &target)
@@ -178,7 +178,7 @@ func (c *Client) delete(ctx context.Context, url string, payload interface{}) er
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
-		return errors.New("error from dev.to api")
+		return errors.New("error from forem api")
 	}
 
 	return nil
