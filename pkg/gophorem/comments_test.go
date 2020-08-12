@@ -1,6 +1,7 @@
 package gophorem
 
 import (
+	"context"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -18,7 +19,7 @@ func TestCommentWithReplies(t *testing.T) {
 		w.Write(b)
 	}))
 	client := NewDevtoClient(withBaseURL(ts.URL))
-	article, err := client.CommentWithReplies(167919)
+	article, err := client.CommentWithReplies(context.TODO(), 167919)
 	require.NoError(t, err)
 	require.Equal(t, &res, article)
 }
@@ -33,7 +34,7 @@ func TestAllComments(t *testing.T) {
 		w.Write(b)
 	}))
 	client := NewDevtoClient(withBaseURL(ts.URL))
-	article, err := client.AllComments(167919)
+	article, err := client.AllComments(context.TODO(), 167919)
 	require.NoError(t, err)
 	require.Equal(t, res, article)
 }

@@ -2,6 +2,7 @@ package gophorem
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -42,9 +43,9 @@ func withBaseURL(url string) Option {
 	}
 }
 
-// WithApiKey sets the dev.to api key to use for this client.
+// WithAPIKey sets the dev.to api key to use for this client.
 // see https://docs.dev.to/api/#section/Authentication for how to set one up.
-func WithApiKey(apiKey string) Option {
+func WithAPIKey(apiKey string) Option {
 	return func(c *Client) {
 		c.apiKey = apiKey
 	}
@@ -76,7 +77,7 @@ func NewDevtoClient(opts ...Option) *Client {
 	return res
 }
 
-func (c *Client) getRequest(method, url string, payload interface{}) (*http.Request, error) {
+func (c *Client) getRequest(ctx context.Context, method, url string, payload interface{}) (*http.Request, error) {
 
 	b := bytes.NewBuffer(nil)
 	if method == http.MethodPost || method == http.MethodPut {
@@ -87,7 +88,7 @@ func (c *Client) getRequest(method, url string, payload interface{}) (*http.Requ
 		b = bytes.NewBuffer(j)
 	}
 
-	req, err := http.NewRequest(method, url, b)
+	req, err := http.NewRequestWithContext(ctx, method, url, b)
 	if err != nil {
 		return nil, err
 	}
@@ -100,8 +101,8 @@ func (c *Client) getRequest(method, url string, payload interface{}) (*http.Requ
 }
 
 // get returns an error if the http client cannot perform a HTTP GET for the provided URL.
-func (c *Client) get(url string, target interface{}) error {
-	req, err := c.getRequest(http.MethodGet, url, nil)
+func (c *Client) get(ctx context.Context, url string, target interface{}) error {
+	req, err := c.getRequest(ctx, http.MethodGet, url, nil)
 	if err != nil {
 		return err
 	}
@@ -126,8 +127,8 @@ func (c *Client) get(url string, target interface{}) error {
 }
 
 // save returns an error if the http client cannot save the request to dev.to..
-func (c *Client) save(httpMethod string, url string, payload interface{}, target interface{}) error {
-	req, err := c.getRequest(httpMethod, url, payload)
+func (c *Client) save(ctx context.Context, httpMethod string, url string, payload interface{}, target interface{}) error {
+	req, err := c.getRequest(ctx, httpMethod, url, payload)
 	if err != nil {
 		return err
 	}
@@ -146,25 +147,25 @@ func (c *Client) save(httpMethod string, url string, payload interface{}, target
 	}
 
 	if resp.StatusCode != http.StatusOK && resp.StatusCode != http.StatusCreated {
-		return errors.New(fmt.Sprintf("error from dev.to api. httpCode: %d, response: %s", resp.StatusCode, b))
+		return fmt.Errorf("error from dev.to api. httpCode: %d, response: %s", resp.StatusCode, b)
 	}
 
 	return json.Unmarshal(b, &target)
 }
 
 // put returns an error if the http client cannot perform a HTTP PUT for the provided URL.
-func (c *Client) put(url string, payload interface{}, target interface{}) error {
-	return c.save(http.MethodPut, url, payload, target)
+func (c *Client) put(ctx context.Context, url string, payload interface{}, target interface{}) error {
+	return c.save(ctx, http.MethodPut, url, payload, target)
 }
 
 // post returns an error if the http client cannot perform a HTTP POST for the provided URL.
-func (c *Client) post(url string, payload interface{}, target interface{}) error {
-	return c.save(http.MethodPost, url, payload, target)
+func (c *Client) post(ctx context.Context, url string, payload interface{}, target interface{}) error {
+	return c.save(ctx, http.MethodPost, url, payload, target)
 }
 
 // delete returns an error if the http client cannot perform a HTTP DELETE for the provided URL.
-func (c *Client) delete(url string, payload interface{}) error {
-	req, err := c.getRequest(http.MethodDelete, url, nil)
+func (c *Client) delete(ctx context.Context, url string, payload interface{}) error {
+	req, err := c.getRequest(ctx, http.MethodDelete, url, nil)
 	if err != nil {
 		return err
 	}

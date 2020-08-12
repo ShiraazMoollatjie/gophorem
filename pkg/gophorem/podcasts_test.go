@@ -1,6 +1,7 @@
 package gophorem
 
 import (
+	"context"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -29,7 +30,7 @@ func TestPodcastEpisodes(t *testing.T) {
 			}))
 
 			client := NewDevtoClient(withBaseURL(ts.URL))
-			pe, err := client.PodcastEpisodes(test.arguments)
+			pe, err := client.PodcastEpisodes(context.TODO(), test.arguments)
 			require.NoError(t, err)
 			require.Equal(t, res, pe)
 		})

@@ -1,47 +1,48 @@
 package gophorem
 
 import (
+	"context"
 	"fmt"
 	"time"
 )
 
 // Listing will retrieve a listing based on the provided id.
-func (c *Client) Listing(id int) (*Listing, error) {
+func (c *Client) Listing(ctx context.Context, id int) (*Listing, error) {
 	var res Listing
-	err := c.get(fmt.Sprintf(c.baseURL+"/listings/%d", id), &res)
+	err := c.get(ctx, fmt.Sprintf(c.baseURL+"/listings/%d", id), &res)
 
 	return &res, err
 }
 
 // Listings will retrieve listings. "Listings" are classified ads that users create on DEV.
-func (c *Client) Listings(args Arguments) (Listings, error) {
+func (c *Client) Listings(ctx context.Context, args Arguments) (Listings, error) {
 	var res Listings
 	qp := args.toQueryParams().Encode()
-	err := c.get(c.baseURL+"/listings?"+qp, &res)
+	err := c.get(ctx, c.baseURL+"/listings?"+qp, &res)
 
 	return res, err
 }
 
 // ListingsByCategory will retrieve listings belonging to the provided category
-func (c *Client) ListingsByCategory(category ListingCategory) (Listings, error) {
+func (c *Client) ListingsByCategory(ctx context.Context, category ListingCategory) (Listings, error) {
 	var res Listings
-	err := c.get(fmt.Sprintf(c.baseURL+"/listings/category/%s", category), &res)
+	err := c.get(ctx, fmt.Sprintf(c.baseURL+"/listings/category/%s", category), &res)
 
 	return res, err
 }
 
 // CreateListing creates a listing if creating the user or the organization on which behalf the user is creating for has enough creadits.
-func (c *Client) CreateListing(req CreateListingReq) (*Listing, error) {
+func (c *Client) CreateListing(ctx context.Context, req CreateListingReq) (*Listing, error) {
 	var res Listing
-	err := c.post(c.baseURL+"/listings", listingReq{Listing: req}, &res)
+	err := c.post(ctx, c.baseURL+"/listings", listingReq{Listing: req}, &res)
 
 	return &res, err
 }
 
 // UpdateListing updates a listing if creating the user or the organization on which behalf the user is creating for has enough creadits.
-func (c *Client) UpdateListing(id int, req CreateListingReq) (*Listing, error) {
+func (c *Client) UpdateListing(ctx context.Context, id int, req CreateListingReq) (*Listing, error) {
 	var res Listing
-	err := c.put(c.baseURL+fmt.Sprintf("/listings/%d", id), listingReq{Listing: req}, &res)
+	err := c.put(ctx, c.baseURL+fmt.Sprintf("/listings/%d", id), listingReq{Listing: req}, &res)
 
 	return &res, err
 }

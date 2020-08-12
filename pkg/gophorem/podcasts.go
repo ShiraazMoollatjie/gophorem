@@ -1,10 +1,12 @@
 package gophorem
 
+import "context"
+
 // PodcaseEpisodes returns podcast episodes that are according to https://docs.dev.to/api/#operation/getPodcastEpisodes.
-func (c *Client) PodcastEpisodes(args Arguments) (PodcastEpisodes, error) {
+func (c *Client) PodcastEpisodes(ctx context.Context, args Arguments) (PodcastEpisodes, error) {
 	var res PodcastEpisodes
 	qp := args.toQueryParams().Encode()
-	err := c.get(c.baseURL+"/podcast_episodes?"+qp, &res)
+	err := c.get(ctx, c.baseURL+"/podcast_episodes?"+qp, &res)
 
 	return res, err
 }

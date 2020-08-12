@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
 
@@ -8,15 +9,16 @@ import (
 )
 
 func main() {
-	cl := gophorem.NewDevtoClient(gophorem.WithApiKey("MY_API_KEY"))
-	al, err := cl.Articles(gophorem.Defaults())
+	cl := gophorem.NewDevtoClient(gophorem.WithAPIKey("MY_API_KEY"))
+	ctx := context.Background()
+	al, err := cl.Articles(ctx, gophorem.Defaults())
 	if err != nil {
 		log.Fatalf("something went wrong: %+v", err)
 	}
 
 	fmt.Printf("All Articles: %+v", al)
 
-	a, err := cl.PublishedArticle(416009)
+	a, err := cl.PublishedArticle(ctx, 416009)
 	if err != nil {
 		log.Fatalf("something went wrong: %+v", err)
 	}

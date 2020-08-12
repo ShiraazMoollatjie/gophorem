@@ -1,6 +1,7 @@
 package gophorem
 
 import (
+	"context"
 	"encoding/json"
 	"io/ioutil"
 	"net/http"
@@ -20,7 +21,7 @@ func TestListing(t *testing.T) {
 		w.Write(b)
 	}))
 	client := NewDevtoClient(withBaseURL(ts.URL))
-	article, err := client.Listing(167919)
+	article, err := client.Listing(context.TODO(), 167919)
 	require.NoError(t, err)
 	require.Equal(t, &res, article)
 }
@@ -35,7 +36,7 @@ func TestListings(t *testing.T) {
 		w.Write(b)
 	}))
 	client := NewDevtoClient(withBaseURL(ts.URL))
-	article, err := client.Listings(Defaults())
+	article, err := client.Listings(context.TODO(), Defaults())
 	require.NoError(t, err)
 	require.Equal(t, res, article)
 }
@@ -49,7 +50,7 @@ func TestListingsByCategory(t *testing.T) {
 		w.Write(b)
 	}))
 	client := NewDevtoClient(withBaseURL(ts.URL))
-	article, err := client.ListingsByCategory(ListingCategoryCFP)
+	article, err := client.ListingsByCategory(context.TODO(), ListingCategoryCFP)
 	require.NoError(t, err)
 	require.Equal(t, res, article)
 }
@@ -83,8 +84,8 @@ func TestCreateListing(t *testing.T) {
 		w.Write(b)
 	}))
 
-	client := NewDevtoClient(withBaseURL(ts.URL), WithApiKey("myApiKey"))
-	listing, err := client.CreateListing(testListing)
+	client := NewDevtoClient(withBaseURL(ts.URL), WithAPIKey("myApiKey"))
+	listing, err := client.CreateListing(context.TODO(), testListing)
 	require.NoError(t, err)
 	require.Equal(t, &res, listing)
 }
@@ -118,8 +119,8 @@ func TestUpdateListing(t *testing.T) {
 		w.Write(b)
 	}))
 
-	client := NewDevtoClient(withBaseURL(ts.URL), WithApiKey("myApiKey"))
-	listing, err := client.CreateListing(testListing)
+	client := NewDevtoClient(withBaseURL(ts.URL), WithAPIKey("myApiKey"))
+	listing, err := client.CreateListing(context.TODO(), testListing)
 	require.NoError(t, err)
 	require.Equal(t, &res, listing)
 }

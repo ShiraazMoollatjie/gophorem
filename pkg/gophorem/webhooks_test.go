@@ -1,6 +1,7 @@
 package gophorem
 
 import (
+	"context"
 	"encoding/json"
 	"io/ioutil"
 	"net/http"
@@ -30,7 +31,7 @@ func TestWebhooks(t *testing.T) {
 			}))
 
 			client := NewDevtoClient(withBaseURL(ts.URL))
-			articles, err := client.Webhooks()
+			articles, err := client.Webhooks(context.TODO())
 			require.NoError(t, err)
 			require.Equal(t, res, articles)
 		})
@@ -47,7 +48,7 @@ func TestWebhook(t *testing.T) {
 		w.Write(b)
 	}))
 	client := NewDevtoClient(withBaseURL(ts.URL))
-	article, err := client.Webhook(167919)
+	article, err := client.Webhook(context.TODO(), 167919)
 	require.NoError(t, err)
 	require.Equal(t, &res, article)
 }
@@ -61,8 +62,8 @@ func TestDeleteWebhook(t *testing.T) {
 		w.WriteHeader(http.StatusOK)
 	}))
 
-	client := NewDevtoClient(withBaseURL(ts.URL), WithApiKey("myApiKey"))
-	err := client.DeleteWebhook(12345)
+	client := NewDevtoClient(withBaseURL(ts.URL), WithAPIKey("myApiKey"))
+	err := client.DeleteWebhook(context.TODO(), 12345)
 	require.NoError(t, err)
 }
 
@@ -92,8 +93,8 @@ func TestCreateWebhook(t *testing.T) {
 		w.Write(b)
 	}))
 
-	client := NewDevtoClient(withBaseURL(ts.URL), WithApiKey("myApiKey"))
-	articles, err := client.CreateWebhook(whr)
+	client := NewDevtoClient(withBaseURL(ts.URL), WithAPIKey("myApiKey"))
+	articles, err := client.CreateWebhook(context.TODO(), whr)
 	require.NoError(t, err)
 	require.Equal(t, res, articles)
 }

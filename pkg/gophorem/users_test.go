@@ -1,6 +1,7 @@
 package gophorem
 
 import (
+	"context"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -18,7 +19,7 @@ func TestLookupUser(t *testing.T) {
 		w.Write(b)
 	}))
 	client := NewDevtoClient(withBaseURL(ts.URL))
-	up, err := client.LookupUser("167919")
+	up, err := client.LookupUser(context.TODO(), "167919")
 	require.NoError(t, err)
 	require.Equal(t, &res, up)
 }
@@ -33,7 +34,7 @@ func TestLookupMe(t *testing.T) {
 		w.Write(b)
 	}))
 	client := NewDevtoClient(withBaseURL(ts.URL))
-	up, err := client.Me()
+	up, err := client.Me(context.TODO())
 	require.NoError(t, err)
 	require.Equal(t, &res, up)
 }

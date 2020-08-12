@@ -1,93 +1,94 @@
 package gophorem
 
 import (
+	"context"
 	"fmt"
 )
 
 // PublishedArticle returns a published article with post content for the provided article id.
 // See https://docs.dev.to/api/#operation/getArticleById.
-func (c *Client) PublishedArticle(id int32) (*Article, error) {
+func (c *Client) PublishedArticle(ctx context.Context, id int32) (*Article, error) {
 	var res Article
-	err := c.get(c.baseURL+fmt.Sprintf("/articles/%d", id), &res)
+	err := c.get(ctx, c.baseURL+fmt.Sprintf("/articles/%d", id), &res)
 
 	return &res, err
 }
 
 // PublishedArticleByPath returns a published article with post content for the provided article id.
 // See https://docs.dev.to/api/#operation/getArticleById.
-func (c *Client) PublishedArticleByPath(username, slug string) (*Article, error) {
+func (c *Client) PublishedArticleByPath(ctx context.Context, username, slug string) (*Article, error) {
 	var res Article
-	err := c.get(c.baseURL+fmt.Sprintf("/articles/%s/%s", username, slug), &res)
+	err := c.get(ctx, c.baseURL+fmt.Sprintf("/articles/%s/%s", username, slug), &res)
 
 	return &res, err
 }
 
 // Articles returns a slice of articles according to https://docs.dev.to/api/#operation/getArticles.
-func (c *Client) Articles(args Arguments) (Articles, error) {
+func (c *Client) Articles(ctx context.Context, args Arguments) (Articles, error) {
 	var res Articles
 	qp := args.toQueryParams().Encode()
-	err := c.get(c.baseURL+"/articles?"+qp, &res)
+	err := c.get(ctx, c.baseURL+"/articles?"+qp, &res)
 
 	return res, err
 }
 
 // VideoArticles returns articles that are videos according to https://docs.dev.to/api/#operation/getArticlesWithVideo.
-func (c *Client) VideoArticles(args Arguments) (VideoArticles, error) {
+func (c *Client) VideoArticles(ctx context.Context, args Arguments) (VideoArticles, error) {
 	var res VideoArticles
 	qp := args.toQueryParams().Encode()
-	err := c.get(c.baseURL+"/videos?"+qp, &res)
+	err := c.get(ctx, c.baseURL+"/videos?"+qp, &res)
 
 	return res, err
 }
 
 // MyArticles returns a slice of articles according to https://docs.dev.to/api/#operation/getUserArticles.
-func (c *Client) MyArticles(args Arguments) (Articles, error) {
+func (c *Client) MyArticles(ctx context.Context, args Arguments) (Articles, error) {
 	var res Articles
 	qp := args.toQueryParams().Encode()
-	err := c.get(c.baseURL+"/articles/me?"+qp, &res)
+	err := c.get(ctx, c.baseURL+"/articles/me?"+qp, &res)
 
 	return res, err
 }
 
 // MyPublishedArticles returns a slice of published articles according to https://docs.dev.to/api/#operation/getUserPublishedArticles.
-func (c *Client) MyPublishedArticles(args Arguments) (Articles, error) {
+func (c *Client) MyPublishedArticles(ctx context.Context, args Arguments) (Articles, error) {
 	var res Articles
 	qp := args.toQueryParams().Encode()
-	err := c.get(c.baseURL+"/articles/me/published?"+qp, &res)
+	err := c.get(ctx, c.baseURL+"/articles/me/published?"+qp, &res)
 
 	return res, err
 }
 
 // MyUnpublishedArticles returns a slice of unpublished articles according to https://docs.dev.to/api/#operation/getUserUnpublishedArticles.
-func (c *Client) MyUnpublishedArticles(args Arguments) (Articles, error) {
+func (c *Client) MyUnpublishedArticles(ctx context.Context, args Arguments) (Articles, error) {
 	var res Articles
 	qp := args.toQueryParams().Encode()
-	err := c.get(c.baseURL+"/articles/me/unpublished?"+qp, &res)
+	err := c.get(ctx, c.baseURL+"/articles/me/unpublished?"+qp, &res)
 
 	return res, err
 }
 
 // AllMyArticles returns a slice of unpublished articles according to https://docs.dev.to/api/#operation/getUserAllArticles.
-func (c *Client) AllMyArticles(args Arguments) (Articles, error) {
+func (c *Client) AllMyArticles(ctx context.Context, args Arguments) (Articles, error) {
 	var res Articles
 	qp := args.toQueryParams().Encode()
-	err := c.get(c.baseURL+"/articles/me/all?"+qp, &res)
+	err := c.get(ctx, c.baseURL+"/articles/me/all?"+qp, &res)
 
 	return res, err
 }
 
 // CreateArticle creates a post with the provided request content on the dev.to platform according to https://docs.dev.to/api/#operation/createArticle.
-func (c *Client) CreateArticle(req CreateArticleReq) (Article, error) {
+func (c *Client) CreateArticle(ctx context.Context, req CreateArticleReq) (Article, error) {
 	var res Article
-	err := c.post(c.baseURL+"/articles", ArticleReq{Article: req}, &res)
+	err := c.post(ctx, c.baseURL+"/articles", ArticleReq{Article: req}, &res)
 
 	return res, err
 }
 
 // UpdateArticle will update a dev.to post with the provided ID and request content according to https://docs.dev.to/api/#operation/updateArticle.
-func (c *Client) UpdateArticle(id int, req CreateArticleReq) (Article, error) {
+func (c *Client) UpdateArticle(ctx context.Context, id int, req CreateArticleReq) (Article, error) {
 	var res Article
-	err := c.put(c.baseURL+fmt.Sprintf("/articles/%d", id), ArticleReq{Article: req}, &res)
+	err := c.put(ctx, c.baseURL+fmt.Sprintf("/articles/%d", id), ArticleReq{Article: req}, &res)
 
 	return res, err
 }

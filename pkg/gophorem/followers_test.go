@@ -1,6 +1,7 @@
 package gophorem
 
 import (
+	"context"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -29,7 +30,7 @@ func TestFollowers(t *testing.T) {
 			}))
 
 			client := NewDevtoClient(withBaseURL(ts.URL))
-			followers, err := client.Followers(test.arguments)
+			followers, err := client.Followers(context.TODO(), test.arguments)
 			require.NoError(t, err)
 			require.Equal(t, res, followers)
 		})

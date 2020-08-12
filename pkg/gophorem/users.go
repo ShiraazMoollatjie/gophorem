@@ -1,19 +1,22 @@
 package gophorem
 
-import "fmt"
+import (
+	"context"
+	"fmt"
+)
 
 // LookupUser will retrieve single user, either by id or by the user's username.
-func (c *Client) LookupUser(id string) (*UserProfile, error) {
+func (c *Client) LookupUser(ctx context.Context, id string) (*UserProfile, error) {
 	var res UserProfile
-	err := c.get(c.baseURL+fmt.Sprintf("/users/%s", id), &res)
+	err := c.get(ctx, c.baseURL+fmt.Sprintf("/users/%s", id), &res)
 
 	return &res, err
 }
 
 // Me will retrieve the user profile for the configured authentication key.
-func (c *Client) Me() (*UserProfile, error) {
+func (c *Client) Me(ctx context.Context) (*UserProfile, error) {
 	var res UserProfile
-	err := c.get(c.baseURL+"/users/me", &res)
+	err := c.get(ctx, c.baseURL+"/users/me", &res)
 
 	return &res, err
 }

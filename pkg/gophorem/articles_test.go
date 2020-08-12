@@ -1,6 +1,7 @@
 package gophorem
 
 import (
+	"context"
 	"encoding/json"
 	"io/ioutil"
 	"net/http"
@@ -21,7 +22,7 @@ func TestPublishedArticle(t *testing.T) {
 		w.Write(b)
 	}))
 	client := NewDevtoClient(withBaseURL(ts.URL))
-	article, err := client.PublishedArticle(167919)
+	article, err := client.PublishedArticle(context.TODO(), 167919)
 	require.NoError(t, err)
 	require.Equal(t, &res, article)
 }
@@ -36,7 +37,7 @@ func TestPublishedArticleByPath(t *testing.T) {
 		w.Write(b)
 	}))
 	client := NewDevtoClient(withBaseURL(ts.URL))
-	article, err := client.PublishedArticleByPath("devteam", "using-go-is-awesome")
+	article, err := client.PublishedArticleByPath(context.TODO(), "devteam", "using-go-is-awesome")
 	require.NoError(t, err)
 	require.Equal(t, &res, article)
 }
@@ -62,7 +63,7 @@ func TestGetArticles(t *testing.T) {
 			}))
 
 			client := NewDevtoClient(withBaseURL(ts.URL))
-			articles, err := client.Articles(test.arguments)
+			articles, err := client.Articles(context.TODO(), test.arguments)
 			require.NoError(t, err)
 			require.Equal(t, res, articles)
 		})
@@ -89,7 +90,7 @@ func TestGetVideoArticles(t *testing.T) {
 			}))
 
 			client := NewDevtoClient(withBaseURL(ts.URL))
-			articles, err := client.VideoArticles(test.arguments)
+			articles, err := client.VideoArticles(context.TODO(), test.arguments)
 			require.NoError(t, err)
 			require.Equal(t, res, articles)
 		})
@@ -107,7 +108,7 @@ func TestGetMyArticles(t *testing.T) {
 	}))
 
 	client := NewDevtoClient(withBaseURL(ts.URL))
-	articles, err := client.MyArticles(Defaults())
+	articles, err := client.MyArticles(context.TODO(), Defaults())
 	require.NoError(t, err)
 	require.Equal(t, res, articles)
 }
@@ -123,7 +124,7 @@ func TestGetMyPublishedArticles(t *testing.T) {
 	}))
 
 	client := NewDevtoClient(withBaseURL(ts.URL))
-	articles, err := client.MyPublishedArticles(Defaults())
+	articles, err := client.MyPublishedArticles(context.TODO(), Defaults())
 	require.NoError(t, err)
 	require.Equal(t, res, articles)
 }
@@ -139,7 +140,7 @@ func TestGetMyUnpublishedArticles(t *testing.T) {
 	}))
 
 	client := NewDevtoClient(withBaseURL(ts.URL))
-	articles, err := client.MyUnpublishedArticles(Defaults())
+	articles, err := client.MyUnpublishedArticles(context.TODO(), Defaults())
 	require.NoError(t, err)
 	require.Equal(t, res, articles)
 }
@@ -155,7 +156,7 @@ func TestGetAllMyArticles(t *testing.T) {
 	}))
 
 	client := NewDevtoClient(withBaseURL(ts.URL))
-	articles, err := client.AllMyArticles(Defaults())
+	articles, err := client.AllMyArticles(context.TODO(), Defaults())
 	require.NoError(t, err)
 	require.Equal(t, res, articles)
 }
@@ -188,8 +189,8 @@ func TestCreateArticle(t *testing.T) {
 		w.Write(b)
 	}))
 
-	client := NewDevtoClient(withBaseURL(ts.URL), WithApiKey("myApiKey"))
-	articles, err := client.CreateArticle(testArticle)
+	client := NewDevtoClient(withBaseURL(ts.URL), WithAPIKey("myApiKey"))
+	articles, err := client.CreateArticle(context.TODO(), testArticle)
 	require.NoError(t, err)
 	require.Equal(t, res, articles)
 }
@@ -221,8 +222,8 @@ func TestCreateArticleNoSeriesField(t *testing.T) {
 		w.Write(b)
 	}))
 
-	client := NewDevtoClient(withBaseURL(ts.URL), WithApiKey("myApiKey"))
-	articles, err := client.CreateArticle(testArticle)
+	client := NewDevtoClient(withBaseURL(ts.URL), WithAPIKey("myApiKey"))
+	articles, err := client.CreateArticle(context.TODO(), testArticle)
 	require.NoError(t, err)
 	require.Equal(t, res, articles)
 }
@@ -255,8 +256,8 @@ func TestUpdateArticle(t *testing.T) {
 		w.Write(b)
 	}))
 
-	client := NewDevtoClient(withBaseURL(ts.URL), WithApiKey("myApiKey"))
-	articles, err := client.UpdateArticle(1000, testArticle)
+	client := NewDevtoClient(withBaseURL(ts.URL), WithAPIKey("myApiKey"))
+	articles, err := client.UpdateArticle(context.TODO(), 1000, testArticle)
 	require.NoError(t, err)
 	require.Equal(t, res, articles)
 }

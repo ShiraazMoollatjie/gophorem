@@ -1,26 +1,27 @@
 package gophorem
 
 import (
+	"context"
 	"errors"
 	"fmt"
 )
 
 // AllComments will return the all top level comments with their nested comments as threads.
-func (c *Client) AllComments(articleID int) (Comments, error) {
+func (c *Client) AllComments(ctx context.Context, articleID int) (Comments, error) {
 	if articleID == 0 {
 		return nil, errors.New("articleID cannot be empty")
 	}
 
 	var res Comments
-	err := c.get(c.baseURL+fmt.Sprintf("/comments?a_id=%d", articleID), &res)
+	err := c.get(ctx, c.baseURL+fmt.Sprintf("/comments?a_id=%d", articleID), &res)
 
 	return res, err
 }
 
 // CommentWithReplies will retrieve a comment as well as his descendants comments for the provided id.
-func (c *Client) CommentWithReplies(id int) (*Comment, error) {
+func (c *Client) CommentWithReplies(ctx context.Context, id int) (*Comment, error) {
 	var res Comment
-	err := c.get(c.baseURL+fmt.Sprintf("/comments/%d", id), &res)
+	err := c.get(ctx, c.baseURL+fmt.Sprintf("/comments/%d", id), &res)
 
 	return &res, err
 }

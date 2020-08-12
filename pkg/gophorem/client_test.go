@@ -26,7 +26,7 @@ func TestNewClientApiKey(t *testing.T) {
 		w.WriteHeader(http.StatusOK)
 		w.Write([]byte("ok"))
 	}))
-	NewDevtoClient(withBaseURL(ts.URL), WithApiKey("myApiKey"))
+	NewDevtoClient(withBaseURL(ts.URL), WithAPIKey("myApiKey"))
 	fmt.Println(ts.URL)
 	require.True(t, strings.Contains(ts.URL, "127.0.0.1"))
 }
