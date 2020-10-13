@@ -20,5 +20,7 @@ func main() {
 		log.Fatalf("something went wrong: %+v", err)
 	}
 
-	fmt.Printf("All Articles: %+v", al)
+	for _, a := range al {
+		fmt.Printf("All Articles: %+v\n", a)
+	}
 }

@@ -138,12 +138,12 @@ type Article struct {
 	CommentsCount        int          `json:"comments_count"`
 	PublicReactionsCount int          `json:"public_reactions_count"`
 	CollectionID         int          `json:"collection_id"`
-	CreatedAt            emptyTime    `json:"created_at"`
-	EditedAt             emptyTime    `json:"edited_at"`
-	CrosspostedAt        emptyTime    `json:"crossposted_at"`
-	PublishedAt          emptyTime    `json:"published_at"`
-	LastCommentAt        emptyTime    `json:"last_comment_at"`
-	PublishedTimestamp   emptyTime    `json:"published_timestamp"`
+	CreatedAt            EmptyTime    `json:"created_at"`
+	EditedAt             EmptyTime    `json:"edited_at"`
+	CrosspostedAt        EmptyTime    `json:"crossposted_at"`
+	PublishedAt          EmptyTime    `json:"published_at"`
+	LastCommentAt        EmptyTime    `json:"last_comment_at"`
+	PublishedTimestamp   EmptyTime    `json:"published_timestamp"`
 	BodyHTML             string       `json:"body_html"`
 	BodyMarkdown         string       `json:"body_markdown"`
 	User                 User         `json:"user"`
